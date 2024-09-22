@@ -7,8 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "rm -rf node_modules/@next/swc-* && next build"
-  },
+    "postinstall": "prisma generate && rm -rf node_modules/@next/swc-* && next build"
+  }
+,
   "dependencies": {
     "@clerk/nextjs": "^5.3.7",
     "@hookform/resolvers": "^3.9.0",
