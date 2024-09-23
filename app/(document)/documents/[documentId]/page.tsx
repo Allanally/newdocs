@@ -16,8 +16,7 @@ import { Button } from "@/components/ui/button";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import axios from "axios";
-import { File } from "lucide-react";
-
+import { File, Loader2 } from "lucide-react";
 
 interface Attachment {
   id: string;
@@ -29,14 +28,15 @@ interface Document {
   id: string;
   title: string;
   description: string;
-  Attachments: Attachment[]; 
+  Attachments: Attachment[];
 }
 
 const DocumentIdPageClient = () => {
   const [documentId, setDocumentId] = useState<string | null>(null);
   const [isPurchased, setIsPurchased] = useState(false);
   const [documentDetails, setDocumentDetails] = useState<Document | null>(null);
-  
+  const [loading, setLoading] = useState(true);
+
   const [phone, setPhone] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -46,18 +46,25 @@ const DocumentIdPageClient = () => {
     setDocumentId(storedDocumentId);
 
     if (storedDocumentId) {
-      axios.get(`/api/purchase?documentId=${storedDocumentId}`).then((response) => {
-        setIsPurchased(response.data.isPurchased);
+      axios
+        .get(`/api/purchase?documentId=${storedDocumentId}`)
+        .then((response) => {
+          setIsPurchased(response.data.isPurchased);
 
-        if (response.data.isPurchased) {
-          axios.get(`/api/admin/${storedDocumentId}`).then((docRes) => {
-            setDocumentDetails(docRes.data);
-          });
-        }
-      }).catch((error) => {
-        toast.error("Error checking purchase status");
-        console.error("Error:", error);
-      });
+          if (response.data.isPurchased) {
+            axios.get(`/api/admin/${storedDocumentId}`).then((docRes) => {
+              setDocumentDetails(docRes.data);
+              setLoading(false);
+            });
+          } else {
+            setLoading(false); 
+          }
+        })
+        .catch((error) => {
+          toast.error("Error checking purchase status");
+          console.error("Error:", error);
+          setLoading(false);
+        });
     }
   }, []);
 
@@ -78,6 +85,17 @@ const DocumentIdPageClient = () => {
   };
 
 
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="spinner-border border-blue-300 animate-spin inline-block  w-12 h-12 border-4 rounded-full" role="status">
+         
+        </div>
+      </div>
+    );
+  }
+
+
   if (isPurchased && documentDetails) {
     return (
       <div className="flex flex-col items-center max-w-4xl mx-auto pb-2">
@@ -95,7 +113,7 @@ const DocumentIdPageClient = () => {
                       href={attachment.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center p-3  gap-4 bg-sky-200 border text-sky-700 rounded-md absolute hover:underline z-50"
+                      className="flex items-center p-3 gap-4 bg-sky-200 border text-sky-700 rounded-md absolute hover:underline z-50"
                     >
                       <File />
                       <p className="line-clamp-1">{attachment.name}</p>

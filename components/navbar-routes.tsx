@@ -15,6 +15,19 @@ export const NavBarRoutes = () => {
     const isCoursePage = pathname?.includes("/docs");
     const isSearchPage = pathname === "/search"
 
+    if(!userId) {
+     return (
+        <div className="flex gap-x-2 ml-auto">
+            <Link href="/sign-in">
+             <Button>
+                Login
+            </Button>
+            </Link>
+           
+        </div>
+     )
+    }
+
  
     return (
         <>
