@@ -4,8 +4,7 @@ import { db } from "@/lib/db";
 
 export async function PATCH(req: NextRequest) {
   try {
-    const { userId } = auth(); 
-    const { documentId, isPurchased } = await req.json(); 
+    const { documentId, isPurchased, userId } = await req.json(); 
 
     if (!userId || !documentId || typeof isPurchased !== "boolean") {
       return NextResponse.json({ error: "Invalid data" }, { status: 400 });
