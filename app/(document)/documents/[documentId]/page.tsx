@@ -17,6 +17,7 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import axios from "axios";
 import { File, Loader2 } from "lucide-react";
+import Link from "next/link";
 
 interface Attachment {
   id: string;
@@ -133,15 +134,28 @@ const DocumentIdPageClient = () => {
   return (
     <div className="flex flex-col max-w-4xl mx-auto pb-2">
       <div className="p-4 text-center">
+        <div className="relative mb-14">
         <h1>Document ID: {documentId}</h1>
         <h2 className="text-2xl font-semibold mb-4">This document is locked</h2>
         <p className="mb-4">
           The document is purchasable. In order to view its content, you must first purchase it.
         </p>
-
+  
+        <div className="mr-12">
+          <a
+            href="https://wa.me/+250784798564"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="absolute z-50 left-70 text-green-500 underline hover:text-green-700 cursor-pointer"
+          >
+            Contact us on WhatsApp
+          </a>
+        </div>
+        </div>
+      
         <AlertDialog>
           <AlertDialogTrigger asChild>
-            <Button className="absolute z-50">Unlock</Button>
+            <Button className="top-70 absolute z-50">Unlock</Button>
           </AlertDialogTrigger>
 
           <AlertDialogContent>
