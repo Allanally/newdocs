@@ -4,8 +4,8 @@ import { useState, useEffect } from 'react';
 
 const ads = [
   {
-    image: '/screen.png',
-    phoneNumber: '+1234567890',
+    image: '/ad1.jpg',
+    phoneNumber: '+250784798564',
   },
   {
     image: '/logo.png',
