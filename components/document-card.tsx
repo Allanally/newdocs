@@ -46,7 +46,7 @@ export const DocumentCard = ({
             {title}
           </div>
           <p className="text-md text-muted-foreground line-clamp-3">{description}</p>
-          <p className="text-md md:text-sm font-medium text-slate-500">{price}</p>
+          <p className="text-md md:text-sm font-medium text-slate-500">RWF{price}</p>
         </div>
       </div>
     </Link>
