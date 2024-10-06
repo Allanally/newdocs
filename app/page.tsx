@@ -4,7 +4,7 @@ import { DocumentsList } from "@/components/documents-list";
 import { Navbar } from "./(dashboard)/_components/navbar";
 
 import { Sidebar } from "./(dashboard)/_components/sidebar";
-import AdRotator from "@/components/AdRotator";
+import Footer from "./(dashboard)/_components/footer.jsx";
 
 
 const HomePage =  async () => {
@@ -24,10 +24,7 @@ const HomePage =  async () => {
           <main className="flex-grow md:pl-60 pt-[80px]">
             <DocumentsList items={documents} />
           </main>
-              
-          <div className="fixed bottom-0 w-full z-40">
-            <AdRotator />
-          </div>
+          <Footer />
         </div>
     );
   }    
